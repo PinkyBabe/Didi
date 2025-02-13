@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day Love</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #1a0f1f, #0a060c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 85%;
+            max-width: 1200px;
+            min-height: 80vh;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            box-shadow: 
+                0 4px 30px rgba(255, 192, 203, 0.3),
+                inset 0 2px 20px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, transparent, rgba(255, 192, 203, 0.1));
+            animation: shimmer 10s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .pic {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .pic img {
+            width: 90%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 192, 203, 0.5);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .pic img:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
+        }
+
+        .poem {
+            flex: 1;
+            text-align: center;
+            color: #ffd7e5;
+            font-size: 1.6em;
+            line-height: 1.6;
+            text-shadow: 
+                0 0 10px rgba(255, 192, 203, 0.5),
+                0 0 20px rgba(255, 192, 203, 0.3);
+            padding: 30px;
+            position: relative;
+        }
+
+        .poem p {
+            margin: 15px 0;
+            opacity: 0;
+            animation: revealText 1s ease-out forwards;
+            animation-delay: calc(var(--delay) * 0.3s);
+        }
+
+        @keyframes revealText {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .petals {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .petal {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, #ffbad2, #ff8fb2);
+            border-radius: 150% 0 150% 0;
+            transform-origin: center;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .signature {
+            font-family: 'Arial', cursive;
+            font-size: 1.2em;
+            color: #ff9dbb;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .heart {
+            display: inline-block;
+            color: #ff6b8b;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 20px;
+            }
+            .poem {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+
+<audio controls autoplay style="display: none;">
+    <source src="love.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+</head>
+<body>
+    <div class="petals"></div>
+
+    <div class="container">
+        <div class="pic">
+            <img src="../love.jpg" alt="Love">
+        </div>
+        <div class="poem">
+            <p style="--delay: 1">Under the cherry moon, our hearts align,</p>
+            <p style="--delay: 2">Soft petals dance in love divine.</p>
+            <p style="--delay: 3">With every breeze, I hear your name,</p>
+            <p style="--delay: 4">Forever ours, an endless flame.</p>
+            <div class="signature" style="--delay: 5">
+                <p>Happy Valentine's Day Love,</p>
+                <p>Jam <span class="heart">❤️</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createPetal() {
+            const petal = document.createElement("div");
+            petal.classList.add("petal");
+            
+            // Randomize petal size
+            const size = Math.random() * 15 + 10;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            
+            // Randomize starting position
+            petal.style.left = `${Math.random() * 100}vw`;
+            
+            // Randomize animation duration and delay
+            petal.style.animationDuration = `${Math.random() * 3 + 3}s`;
+            petal.style.animationDelay = `${Math.random() * 2}s`;
+            
+            // Randomize rotation
+            petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            document.querySelector(".petals").appendChild(petal);
+            setTimeout(() => petal.remove(), 6000);
+        }
+
+        // Create initial batch of petals
+        for(let i = 0; i < 20; i++) {
+            createPetal();
+        }
+        
+        // Continue creating petals
+        setInterval(createPetal, 300);
+    </script>
+</body>
+</html>
