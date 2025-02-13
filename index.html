@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cherry Blossom Night</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Cursive', sans-serif;
+        }
+        .scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40%;
+            background: url('mountain.svg') no-repeat center bottom;
+            background-size: cover;
+        }
+        .tree {
+            position: absolute;
+            bottom: 10%;
+            left: 20%;
+            width: 20%;
+            height: 50%;
+            background: url('cherry-blossom-tree.svg') no-repeat center;
+            background-size: contain;
+        }
+        .falling-petals {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .petal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: pink;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        .poem {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <div class="mountain"></div>
+        <div class="tree"></div>
+        <div class="falling-petals"></div>
+        <div class="poem">
+            <p>Under the moonlit sky, your love blooms,</p>
+            <p>Like cherry blossoms dancing in the wind.</p>
+            <p>Soft whispers of petals kiss my heart,</p>
+            <p>Forever yours, my love, my spring.</p>
+        </div>
+    </div>
+    <script>
+        function createPetal() {
+            const petal = document.createElement("div");
+            petal.classList.add("petal");
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            document.querySelector(".falling-petals").appendChild(petal);
+            setTimeout(() => petal.remove(), 5000);
+        }
+        setInterval(createPetal, 300);
+    </script>
+</body>
+</html>
